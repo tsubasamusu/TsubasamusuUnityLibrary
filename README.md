@@ -1,7 +1,6 @@
-﻿# はじめに
-## 機能
-### Google Cloud Storage
-- Google Cloud Storage 上のテクスチャ（Texture2D）の取得
+﻿# 機能
+## Google Cloud Storage
+### Google Cloud Storage 上のテクスチャ（Texture2D）の取得
 ```cs
 private async void Hoge()
 {
@@ -12,8 +11,8 @@ private async void Hoge()
     Texture2D texture = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetTextureFromCloudStorageAsync("JSON Web Token", "バケット名", "オブジェクト名", width, height);
 }
 ```
-### Google Cloud JSON Web Token
-- Google Cloud の API を使用する際に必要な JSON Web Token の取得
+## Google Cloud JSON Web Token
+### Google Cloud の API を使用する際に必要な JSON Web Token の取得
 ```cs
 private async void Hoge()
 {
@@ -22,8 +21,8 @@ private async void Hoge()
     string jwt = await TSUBASAMUSU.Google.JsonWebToken.GoogleCloudJwtGetter.GetGoogleCloudJwtAsync("サービスアカウントのプライベートキー", "サービスアカウントのメールアドレス", scopes);
 }
 ```
-### Google Spreadsheet
-- Google Spreadsheet のセルへの文字列の設定
+## Google Spreadsheet
+### Google Spreadsheet のセルへの文字列の設定
 ```cs
 private void Hoge()
 {
@@ -31,10 +30,10 @@ private void Hoge()
 
     int column = 1;//セルの列
 
-    TSUBASAMUSU.Google.Spreadsheet.SpreadsheetManager.SetCellValueAsync("JSON Web Token", "シートの Id", "シートの名前", row, column, "セルに設定する文字列");
+    TSUBASAMUSU.Google.Spreadsheet.SpreadsheetManager.SetCellValueAsync("JSON Web Token", "シートの ID", "シートの名前", row, column, "セルに設定する文字列");
 }
 ```
-- Google Spreadsheet のセルからの文字列の取得
+### Google Spreadsheet のセルからの文字列の取得
 ```cs
 private async void Hoge()
 {
@@ -42,24 +41,24 @@ private async void Hoge()
 	
     (int row, int column) lastCell = (2, 2);//取得する範囲の最後のセル（行,列）
 
-    List<List<string>> cellValues = TSUBASAMUSU.Google.Spreadsheet.SpreadsheetManager.GetCellValuesAsync("JSON Web Token", "シートの Id", "シートの名前", firstCell, lastCell);
+    List<List<string>> cellValues = await TSUBASAMUSU.Google.Spreadsheet.SpreadsheetManager.GetCellValuesAsync("JSON Web Token", "シートの ID", "シートの名前", firstCell, lastCell);
 
     string cellValue = cellValues[1][2];//1行目の2列目のセルの値
 }
 ```
-- Google Spreadsheet の指定の列の最終行番号の取得
+### Google Spreadsheet の指定の列の最終行番号の取得
 ```cs
 private async void Hoge()
 {
     int column = 1;//列
 
-    int lastRow = TSUBASAMUSU.Google.Spreadsheet.SpreadsheetManager.GetLastRowAsync("JSON Web Token", "シートの Id", "シートの名前", column);
+    int lastRow = await TSUBASAMUSU.Google.Spreadsheet.SpreadsheetManager.GetLastRowAsync("JSON Web Token", "シートの ID", "シートの名前", column);
 }
 ```
-### Unity Web Request
-- ``UnityWebRequest.SendWebRequest()`` の ``await`` での待機
+## Unity Web Request
+### ``UnityWebRequest.SendWebRequest()`` の ``await`` での待機
 ```cs
-using TSUBASAMUSU.UnityWebRequestAwaiter;
+using TSUBASAMUSU.UnityWebRequestAwaiter;//名前空間を追加
 using UnityEngine.Networking;
 
 public class Sample
@@ -72,8 +71,8 @@ public class Sample
     }
 }
 ```
-## 利用規約
+# 利用規約
 # 使用方法
-## Unity の設定の変更
-## NuGet パッケージのインポート
-## 「TsubasamusuLibrary.dll」のインポート
+1. Unity の設定の変更
+2. NuGet パッケージのインポート
+3. 「TsubasamusuLibrary.dll」のインポート
