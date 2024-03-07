@@ -71,8 +71,12 @@ public class Sample
     }
 }
 ```
-# 利用規約
 # 使用方法
-1. Unity の設定の変更
-2. NuGet パッケージのインポート
-3. 「TsubasamusuLibrary.dll」のインポート
+## 1. Unity の設定の変更
+Unity エディタを開き、「**File**＞**Build Settings**＞**Player Settings...**＞**Player**＞**Other Settings**＞**Configuration**＞**Api Compatibility Level**」を「**.NET Standard 2.1**」に変更する。
+## 2. NuGet パッケージのインポート
+[NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity) を使用してプロジェクトに以下の NuGet パッケージをインポートする。
+
+- Newtonsoft.Json
+## 3. DLLのインポート
+最新版のリリースをダウンロードし、「**TsubasamusuLibrary.dll**」をプロジェクトにインポートする。
