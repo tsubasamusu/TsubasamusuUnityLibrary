@@ -79,4 +79,4 @@ Unity エディタを開き、「**File**＞**Build Settings**＞**Player Settin
 
 - Newtonsoft.Json
 ## 3. DLLのインポート
-最新版のリリースをダウンロードし、「**TsubasamusuLibrary.dll**」をプロジェクトにインポートする。
+最新版のリリースをダウンロードし、「**TsubasamusuUnityLibrary.dll**」をプロジェクトにインポートする。
