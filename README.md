@@ -15,7 +15,11 @@ private async void Hoge()
 ```cs
 private async void Hoge()
 {
-    {任意の型} asset = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetAssetFromCloudStorage<{任意の型}>("JSON Web Token", "バケット名", "オブジェクト名", "アセット名");
+    //取得するアセットバンドルの含んでいるアセットが1つのみの場合
+    {任意の型} asset = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetAssetFromCloudStorageAsync<{任意の型}>("JSON Web Token", "バケット名", "オブジェクト名", "アセット名");
+
+    //取得するアセットバンドルの含んでいるアセットが複数ある場合
+    {任意の型の配列} assets = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetAllAssetsFromCloudStorageAsync<{任意の型}>("JSON Web Token", "バケット名", "オブジェクト名");
 }
 ```
 ## Google Cloud JSON Web Token
