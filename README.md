@@ -11,6 +11,13 @@ private async void Hoge()
     Texture2D texture = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetTextureFromCloudStorageAsync("JSON Web Token", "バケット名", "オブジェクト名", width, height);
 }
 ```
+### Google Cloud Storage 上のアセットバンドルの取得
+```cs
+private async void Hoge()
+{
+    GameObject prefab = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetPrefabFromCloudStorageAsync("JSON Web Token", "バケット名", "オブジェクト名", "プレハブ名");
+}
+```
 ## Google Cloud JSON Web Token
 ### Google Cloud の API を使用する際に必要な JSON Web Token の取得
 ```cs
@@ -73,7 +80,7 @@ public class Sample
 ```
 # 使用方法
 ## 1. Unity の設定の変更
-Unity エディタを開き、「**File**＞**Build Settings**＞**Player Settings...**＞**Player**＞**Other Settings**＞**Configuration**＞**Api Compatibility Level**」を「**.NET Standard 2.1**」に変更する。
+Unity エディタを開き、「**File** ＞ **Build Settings** ＞ **Player Settings...** ＞ **Player** ＞ **Other Settings** ＞ **Configuration** ＞ **Api Compatibility Level**」を「**.NET Standard 2.1**」に変更する。
 ## 2. NuGet パッケージのインポート
 [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity) を使用してプロジェクトに以下の NuGet パッケージをインポートする。
 
