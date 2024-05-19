@@ -62,45 +62,25 @@ namespace TSUBASAMUSU.Google.CloudStorage
         /// <summary>
         /// Get the asset in  the Google Cloud Storage with AssetBundle.
         /// </summary>
-        public static async Task<T> GetAssetFromCloudStorage<T>(string googleCloudJwt, string bucketName, string objectName, string assetName) where T : UnityEngine.Object
+        public static async Task<T> GetAssetFromCloudStorageAsync<T>(string googleCloudJwt, string bucketName, string objectName, string assetName = "") where T : UnityEngine.Object
         {
             AssetBundle assetBundle = await GetAssetBundleFromCloudStorageAsync(googleCloudJwt, bucketName, objectName);
 
             if (assetBundle == null) return null;
 
-            return GetAssetFromAssetBundle<T>(assetBundle, assetName);
+            return assetBundle.LoadAsset<T>(string.IsNullOrEmpty(assetName) ? objectName : assetName);
         }
 
-        private static T GetAssetFromAssetBundle<T>(AssetBundle assetBundle, string assetName) where T : UnityEngine.Object
+        /// <summary>
+        /// Get the all assets array in  the Google Cloud Storage with AssetBundle.
+        /// </summary>
+        public static async Task<T[]> GetAllAssetsFromCloudStorageAsync<T>(string googleCloudJwt, string bucketName, string objectName) where T : UnityEngine.Object
         {
-            if (assetBundle == null)
-            {
-                Debug.LogError("AssetBundle is null.");
+            AssetBundle assetBundle = await GetAssetBundleFromCloudStorageAsync(googleCloudJwt, bucketName, objectName);
 
-                return null;
-            }
+            if (assetBundle == null) return null;
 
-            T asset;
-
-            try
-            {
-                asset = assetBundle.LoadAsset<T>(assetName);
-            }
-            catch (Exception exception)
-            {
-                Debug.LogException(exception);
-
-                return null;
-            }
-
-            if (asset == null)
-            {
-                Debug.LogError("Failed to load \"" + assetName + "\" from AssetBundle.");
-
-                return null;
-            }
-
-            return asset;
+            return assetBundle.LoadAllAssets<T>();
         }
 
         private static async Task<AssetBundle> GetAssetBundleFromCloudStorageAsync(string googleCloudJwt, string bucketName, string objectName)
