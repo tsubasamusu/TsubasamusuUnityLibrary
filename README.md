@@ -11,11 +11,11 @@ private async void Hoge()
     Texture2D texture = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetTextureFromCloudStorageAsync("JSON Web Token", "バケット名", "オブジェクト名", width, height);
 }
 ```
-### Google Cloud Storage 上のアセットバンドルの取得
+### Google Cloud Storage 上のアセットバンドルからの任意の型のアセットの取得
 ```cs
 private async void Hoge()
 {
-    GameObject prefab = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetPrefabFromCloudStorageAsync("JSON Web Token", "バケット名", "オブジェクト名", "プレハブ名");
+    {任意の型} asset = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetAssetFromCloudStorage<{任意の型}>("JSON Web Token", "バケット名", "オブジェクト名", "アセット名");
 }
 ```
 ## Google Cloud JSON Web Token
