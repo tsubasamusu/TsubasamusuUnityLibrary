@@ -68,10 +68,10 @@ namespace TSUBASAMUSU.Google.CloudStorage
 
             if (assetBundle == null) return null;
 
-            return await GetAssetFromAssetBundle<T>(assetBundle, assetName);
+            return GetAssetFromAssetBundle<T>(assetBundle, assetName);
         }
 
-        private static async Task<T> GetAssetFromAssetBundle<T>(AssetBundle assetBundle, string assetName) where T : UnityEngine.Object
+        private static T GetAssetFromAssetBundle<T>(AssetBundle assetBundle, string assetName) where T : UnityEngine.Object
         {
             if (assetBundle == null)
             {
@@ -84,15 +84,7 @@ namespace TSUBASAMUSU.Google.CloudStorage
 
             try
             {
-                AssetBundleRequest assetBundleRequest = assetBundle.LoadAssetAsync<T>(assetName);
-
-                await Task.Yield();
-
-                while (!assetBundleRequest.isDone) await Task.Delay(100);
-
-#pragma warning disable CS8600
-                asset = assetBundleRequest.asset as T;
-#pragma warning restore CS8600
+                asset = assetBundle.LoadAsset<T>(assetName);
             }
             catch (Exception exception)
             {
