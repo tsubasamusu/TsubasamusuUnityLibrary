@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using TSUBASAMUSU.UnityWebRequestAwaiter;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Networking;
 
 namespace TSUBASAMUSU.Google.CloudStorage
@@ -62,13 +63,22 @@ namespace TSUBASAMUSU.Google.CloudStorage
         /// <summary>
         /// Get the asset in  the Google Cloud Storage with AssetBundle.
         /// </summary>
-        public static async Task<T> GetAssetFromCloudStorageAsync<T>(string googleCloudJwt, string bucketName, string objectName, string assetName = "") where T : UnityEngine.Object
+        public static async Task<T> GetAssetFromCloudStorageAsync<T>(string googleCloudJwt, string bucketName, string objectName, string assetName) where T : UnityEngine.Object
         {
             AssetBundle assetBundle = await GetAssetBundleFromCloudStorageAsync(googleCloudJwt, bucketName, objectName);
 
             if (assetBundle == null) return null;
 
-            return assetBundle.LoadAsset<T>(string.IsNullOrEmpty(assetName) ? objectName : assetName);
+            T asset = assetBundle.LoadAsset<T>(assetName);
+
+            if (asset == null)
+            {
+                Debug.LogError("Failed to convert \"" + assetName + "\" from downloaded AssetBundle.");
+
+                return null;
+            }
+
+            return asset;
         }
 
         /// <summary>
@@ -80,7 +90,16 @@ namespace TSUBASAMUSU.Google.CloudStorage
 
             if (assetBundle == null) return null;
 
-            return assetBundle.LoadAllAssets<T>();
+            T[] assets = assetBundle.LoadAllAssets<T>();
+
+            if (assets == null || assets.Length == 0)
+            {
+                Debug.LogError("Failed to convert \"" + objectName + "\" from downloaded AssetBundle.");
+
+                return null;
+            }
+
+            return assets;
         }
 
         private static async Task<AssetBundle> GetAssetBundleFromCloudStorageAsync(string googleCloudJwt, string bucketName, string objectName)
