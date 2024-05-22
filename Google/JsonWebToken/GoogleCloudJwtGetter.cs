@@ -9,9 +9,6 @@ namespace TSUBASAMUSU.Google.JsonWebToken
 {
     public static class GoogleCloudJwtGetter
     {
-        /// <summary>
-        ///Obtain a JSON Web Token for the Google Cloud service account.
-        /// </summary>
         public static async Task<(string message, long currentUnixTime)> GetGoogleCloudJwtAsync(string privateKey, string serviceAccountEmailAddress, string[] scopes)
         {
             Request request = new Request
