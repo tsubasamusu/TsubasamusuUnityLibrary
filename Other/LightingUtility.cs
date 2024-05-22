@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TsubasamusuUnityLibrary.Other
+namespace TSUBASAMUSU.Other
 {
     public static class LightingUtility
     {
