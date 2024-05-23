@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TSUBASAMUSU.UnityEditor;
 using UnityEngine;
@@ -105,6 +106,37 @@ namespace TSUBASAMUSU.Lighting
             string jsonString = JsonUtility.ToJson(meshRendererLightmapData);
 
             return await AssetUtility.CreateJsonFileAtRootDirectoryAsync(jsonString, "MeshRendererLightmapData");
+        }
+
+        public static bool SortLightmaps(ref List<Texture2D> lightmaps)
+        {
+            List<(int index, Texture2D lightmap)> lightmapDatas = new List<(int index, Texture2D lightmap)>();
+
+            foreach (Texture2D lightmap in lightmaps)
+            {
+                int index;
+
+                try
+                {
+                    index = int.Parse(Regex.Replace(lightmap.name, @"[^0-9]", string.Empty));
+                }
+                catch (Exception exception)
+                {
+                    Debug.LogError("There is a incorrect name lightmap.It is \"" + lightmap.name + "\".");
+
+                    Debug.LogException(exception);
+
+                    return false;
+                }
+
+                lightmapDatas.Add((index, lightmap));
+            }
+
+            lightmapDatas = lightmapDatas.OrderBy(downloadColorLightmapData => downloadColorLightmapData.index).ToList();
+
+            lightmaps = lightmapDatas.Select(downloadColorLightmapData => downloadColorLightmapData.lightmap).ToList();
+
+            return true;
         }
     }
 }
