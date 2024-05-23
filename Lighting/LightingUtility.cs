@@ -1,6 +1,9 @@
 ﻿#pragma warning disable CS8600
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using TSUBASAMUSU.UnityEditor;
 using UnityEngine;
 
 namespace TSUBASAMUSU.Lighting
@@ -71,6 +74,32 @@ namespace TSUBASAMUSU.Lighting
             }
 
             return true;
+        }
+
+        public static async Task<bool> CreateJsonFileForLightingAsync()
+        {
+            List<MeshRendererLightmapData.Data> datas = new List<MeshRendererLightmapData.Data>();
+
+            MeshRenderer[] meshRenderers = GameObject.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None);
+
+            foreach (MeshRenderer meshRenderer in meshRenderers)
+            {
+                datas.Add(new MeshRendererLightmapData.Data()
+                {
+                    gameObjectName = meshRenderer.gameObject.name,
+                    lightmapIndex = meshRenderer.lightmapIndex,
+                    lightmapScaleOffset = meshRenderer.lightmapScaleOffset,
+                });
+            }
+
+            MeshRendererLightmapData meshRendererLightmapData = new MeshRendererLightmapData()
+            {
+                datas = datas,
+            };
+
+            string jsonString = JsonUtility.ToJson(meshRendererLightmapData);
+
+            return await AssetUtility.CreateJsonFileAtRootDirectoryAsync(jsonString, "MeshRendererLightmapData");
         }
     }
 }
