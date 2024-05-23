@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿#pragma warning disable CS8600
+using Newtonsoft.Json;
+using System;
+using UnityEngine;
 
 namespace TSUBASAMUSU.Lighting
 {
@@ -22,27 +25,52 @@ namespace TSUBASAMUSU.Lighting
             LightmapSettings.lightmaps = lightmapDatas;
         }
 
-        public static void ApplyLightmapToMeshRenderer(MeshRendererLightmapData meshRendererLightmapData)
+        public static bool ApplyLightmapsToMeshRenderers(TextAsset jsonFile)
         {
-            GameObject meshRendererGameObject = GameObject.Find(meshRendererLightmapData.gameObjectName);
+            MeshRendererLightmapData meshRendererLightmapData;
 
-            if (meshRendererGameObject == null)
+            try
             {
-                Debug.LogError("Failed to get GameObject named \"" + meshRendererLightmapData.gameObjectName + "\".");
+                meshRendererLightmapData = JsonConvert.DeserializeObject<MeshRendererLightmapData>(jsonFile.text);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogException(exception);
 
-                return;
+                return false;
             }
 
-            if (!meshRendererGameObject.TryGetComponent(out MeshRenderer meshRenderer))
+            if (meshRendererLightmapData == null)
             {
-                Debug.LogError("Failed to get MeshRenderer from \"" + meshRendererLightmapData.gameObjectName + "\".");
+                Debug.LogError("Failed to convert from the JSON file named \"" + jsonFile.name + "\".");
 
-                return;
+                return false;
             }
 
-            meshRenderer.lightmapIndex = meshRendererLightmapData.lightmapIndex;
+            foreach (MeshRendererLightmapData.Data data in meshRendererLightmapData.datas)
+            {
+                GameObject meshRendererGameObject = GameObject.Find(data.gameObjectName);
 
-            meshRenderer.lightmapScaleOffset = meshRendererLightmapData.lightmapScaleOffset;
+                if (meshRendererGameObject == null)
+                {
+                    Debug.LogError("Failed to get a GameObject named \"" + data.gameObjectName + "\".");
+
+                    return false;
+                }
+
+                if (!meshRendererGameObject.TryGetComponent(out MeshRenderer meshRenderer))
+                {
+                    Debug.LogError("Failed to get a MeshRenderer from \"" + data.gameObjectName + "\".");
+
+                    return false;
+                }
+
+                meshRenderer.lightmapIndex = data.lightmapIndex;
+
+                meshRenderer.lightmapScaleOffset = data.lightmapScaleOffset;
+            }
+
+            return true;
         }
     }
 }

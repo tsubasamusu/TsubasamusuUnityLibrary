@@ -1,5 +1,6 @@
 ﻿#pragma warning disable CS8618
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TSUBASAMUSU.Lighting
@@ -7,10 +8,16 @@ namespace TSUBASAMUSU.Lighting
     [Serializable]
     public class MeshRendererLightmapData
     {
-        public string gameObjectName;
+        public List<Data> datas;
 
-        public int lightmapIndex;
+        [Serializable]
+        public class Data
+        {
+            public string gameObjectName;
 
-        public Vector4 lightmapScaleOffset;
+            public int lightmapIndex;
+
+            public Vector4 lightmapScaleOffset;
+        }
     }
 }
