@@ -16,9 +16,6 @@ namespace TSUBASAMUSU.Google.Spreadsheet
 {
     public static class SpreadsheetManager
     {
-        /// <summary>
-        /// Set string value to the cell in Google Spreadsheet.
-        /// </summary>
         public static async Task<Response_SetCellValue> SetCellValueAsync(string googleCloudJwt, string spreadsheetId, string sheetName, int row, int column, string setValue)
         {
             string targetCell = SpreadsheetUtility.GetStringValueFromCellValues(row, column);
@@ -87,9 +84,6 @@ namespace TSUBASAMUSU.Google.Spreadsheet
             return JsonConvert.DeserializeObject<Response_SetCellValue>(unityWebRequest.downloadHandler.text);
         }
 
-        /// <summary>
-        /// Get values of cells within a specified range in Google Spreadsheet.
-        /// </summary>
         public static async Task<List<List<string>>> GetCellValuesAsync(string googleCloudJwt, string spreadsheetId, string sheetName, (int row, int column) firstCell, (int row, int column) lastCell)
         {
             NameValueCollection nameValueCollection = HttpUtility.ParseQueryString(string.Empty);
@@ -139,9 +133,6 @@ namespace TSUBASAMUSU.Google.Spreadsheet
             return response.valueRanges[0].values;
         }
 
-        /// <summary>
-        /// Get the last row of a specific column in Google Spreadsheet.
-        /// </summary>
         public static async Task<int> GetLastRowAsync(string googleCloudJwt, string spreadsheetId, string sheetName, int column)
         {
             NameValueCollection nameValueCollection = HttpUtility.ParseQueryString(string.Empty);

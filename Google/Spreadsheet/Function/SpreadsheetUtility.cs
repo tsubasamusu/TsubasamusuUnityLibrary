@@ -5,14 +5,8 @@ namespace TSUBASAMUSU.Google.Spreadsheet
 {
     public static class SpreadsheetUtility
     {
-        /// <summary>
-        /// Convert a row and a column number to a string of a cell number.
-        /// </summary>
         public static string GetStringValueFromCellValues(int row, int columm) => ConvertIntegerToAlphabets(columm) + row.ToString();
 
-        /// <summary>
-        /// Convert a integer value to an alphabetic character.
-        /// </summary>
         public static string ConvertIntegerToAlphabets(int number)
         {
             if (number <= 0) return string.Empty;
@@ -44,9 +38,6 @@ namespace TSUBASAMUSU.Google.Spreadsheet
             return alphabet.Replace("@", string.Empty);
         }
 
-        /// <summary>
-        /// Convert an alphabetic character to a integer value.
-        /// </summary>
         public static int ConvertAlphabetToInteger(string alphabet)
         {
             if (string.IsNullOrEmpty(alphabet)) return -1;

@@ -10,6 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="UnityEditor">
+      <HintPath>DLL\UnityEditor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>UnityEngine.dll</HintPath>
     </Reference>

@@ -66,7 +66,37 @@ private async void Hoge()
     int lastRow = await TSUBASAMUSU.Google.Spreadsheet.SpreadsheetManager.GetLastRowAsync("JSON Web Token", "シートの ID", "シートの名前", column);
 }
 ```
-## Unity Web Request
+## ライティング
+### 現在のシーンへのライトマップの適用
+```cs
+private void Hoge()
+{
+    TSUBASAMUSU.Lighting.LightingUtility.ApplyLightmapsToCurrentScene( Texture2D 型のカラーライトマップの配列, Texture2D 型の法線ライトマップの配列);
+}
+```
+### ライトマップのリストの並び替え（番号順）
+```cs
+private void Hoge()
+{
+    bool success = TSUBASAMUSU.Lighting.LightingUtility.SortLightmaps(ref Texture2D 型のライトマップのリスト);
+}
+```
+### MeshRenderer 用のライトマップのデータの作成と適用
+```cs
+[MenuItem("Assets/Create/Lightmap Data JSON File")]
+public static async void Hoge()
+{
+    //現在開いているシーン内の MeshRenderer のライトマップの設定を JSON ファイルに出力
+    bool success = await TSUBASAMUSU.Lighting.LightingUtility.CreateJsonFileForLightingAsync();
+}
+
+private void Hoge()
+{
+    // CreateJsonFileForLightingAsync() で出力した JSON ファイルのデータを現在のシーンに適用
+    bool success = TSUBASAMUSU.Lighting.LightingUtility.ApplyLightmapsToMeshRenderers(ライトマップのデータの JSON ファイル);
+}
+```
+## その他
 ### ``UnityWebRequest.SendWebRequest()`` の ``await`` での待機
 ```cs
 using TSUBASAMUSU.UnityWebRequestAwaiter;//名前空間を追加
@@ -82,6 +112,13 @@ public class Sample
     }
 }
 ```
+### Assets フォルダ直下への JSON ファイルの作成
+```cs
+private async void Hoge()
+{
+    await TSUBASAMUSU.UnityEditor.AssetUtility.CreateJsonFileAtRootDirectoryAsync("JSON 形式のテキスト", "ファイル名");
+}
+```
 # 使用方法
 ## 1. Unity の設定の変更
 Unity エディタを開き、「**File** ＞ **Build Settings** ＞ **Player Settings...** ＞ **Player** ＞ **Other Settings** ＞ **Configuration** ＞ **Api Compatibility Level**」を「**.NET Standard 2.1**」に変更する。
@@ -89,5 +126,5 @@ Unity エディタを開き、「**File** ＞ **Build Settings** ＞ **Player Se
 [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity) を使用してプロジェクトに以下の NuGet パッケージをインポートする。
 
 - Newtonsoft.Json
-## 3. DLLのインポート
-最新版のリリースをダウンロードし、「**TsubasamusuUnityLibrary.dll**」をプロジェクトにインポートする。
+## 3. DLL のインポート
+最新版のリリースをダウンロードして「**TsubasamusuUnityLibrary.dll**」をプロジェクトにインポートする。
