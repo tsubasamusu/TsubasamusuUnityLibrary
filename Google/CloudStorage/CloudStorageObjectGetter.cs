@@ -6,16 +6,12 @@ using System.Threading.Tasks;
 using System.Web;
 using TSUBASAMUSU.UnityWebRequestAwaiter;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Networking;
 
 namespace TSUBASAMUSU.Google.CloudStorage
 {
     public static class CloudStorageObjectGetter
     {
-        /// <summary>
-        /// Get the texture in  the Google Cloud Storage.
-        /// </summary>
         public static async Task<Texture2D> GetTextureFromCloudStorageAsync(string googleCloudJwt, string bucketName, string objectName, int textureWidth = 512, int textureHeight = 512)
         {
             NameValueCollection nameValueCollection = HttpUtility.ParseQueryString(string.Empty);
@@ -60,9 +56,6 @@ namespace TSUBASAMUSU.Google.CloudStorage
             return DownloadHandlerTexture.GetContent(unityWebRequest);
         }
 
-        /// <summary>
-        /// Get the asset in  the Google Cloud Storage with AssetBundle.
-        /// </summary>
         public static async Task<T> GetAssetFromCloudStorageAsync<T>(string googleCloudJwt, string bucketName, string objectName, string assetName) where T : UnityEngine.Object
         {
             AssetBundle assetBundle = await GetAssetBundleFromCloudStorageAsync(googleCloudJwt, bucketName, objectName);
@@ -81,9 +74,6 @@ namespace TSUBASAMUSU.Google.CloudStorage
             return asset;
         }
 
-        /// <summary>
-        /// Get the all assets array in  the Google Cloud Storage with AssetBundle.
-        /// </summary>
         public static async Task<T[]> GetAllAssetsFromCloudStorageAsync<T>(string googleCloudJwt, string bucketName, string objectName) where T : UnityEngine.Object
         {
             AssetBundle assetBundle = await GetAssetBundleFromCloudStorageAsync(googleCloudJwt, bucketName, objectName);
