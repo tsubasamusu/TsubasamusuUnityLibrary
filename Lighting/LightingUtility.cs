@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TSUBASAMUSU.UnityEditor;
 using UnityEngine;
@@ -50,27 +51,31 @@ namespace TSUBASAMUSU.Lighting
                 return false;
             }
 
+            List<MeshRenderer> meshRenderers = new List<MeshRenderer>();
+
+            meshRenderers = GameObject.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).ToList();
+
             foreach (MeshRendererLightmapData.Data data in meshRendererLightmapData.datas)
             {
-                GameObject meshRendererGameObject = GameObject.Find(data.gameObjectName);
+                List<MeshRenderer> targetNameMeshRenderers = meshRenderers.FindAll(meshRenderer => meshRenderer.gameObject.name == data.gameObjectName);
 
-                if (meshRendererGameObject == null)
+                if (targetNameMeshRenderers.Count > 1)
                 {
-                    Debug.LogError("Failed to get a GameObject named \"" + data.gameObjectName + "\".");
+                    Debug.LogError("There are some same name GameObjects attached MeshRenderer Component named \"" + data.gameObjectName + "\".");
 
                     return false;
                 }
 
-                if (!meshRendererGameObject.TryGetComponent(out MeshRenderer meshRenderer))
+                if (targetNameMeshRenderers == null || targetNameMeshRenderers.Count == 0)
                 {
-                    Debug.LogError("Failed to get a MeshRenderer from \"" + data.gameObjectName + "\".");
+                    Debug.LogError("Failed to find a GameObject that is attached MeshRenderer Component named \"" + data.gameObjectName + "\".");
 
                     return false;
                 }
 
-                meshRenderer.lightmapIndex = data.lightmapIndex;
+                targetNameMeshRenderers[0].lightmapIndex = data.lightmapIndex;
 
-                meshRenderer.lightmapScaleOffset = data.lightmapScaleOffset;
+                targetNameMeshRenderers[0].lightmapScaleOffset = data.lightmapScaleOffset;
             }
 
             return true;
