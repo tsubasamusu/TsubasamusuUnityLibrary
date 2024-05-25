@@ -1,4 +1,5 @@
 ﻿#pragma warning disable CS8603
+#pragma warning disable CS8619
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -56,11 +57,11 @@ namespace TSUBASAMUSU.Google.CloudStorage
             return DownloadHandlerTexture.GetContent(unityWebRequest);
         }
 
-        public static async Task<T> GetAssetFromCloudStorageAsync<T>(string googleCloudJwt, string bucketName, string objectName, string assetName) where T : UnityEngine.Object
+        public static async Task<(T asset, AssetBundle assetBundle)> GetAssetFromCloudStorageAsync<T>(string googleCloudJwt, string bucketName, string objectName, string assetName) where T : UnityEngine.Object
         {
             AssetBundle assetBundle = await GetAssetBundleFromCloudStorageAsync(googleCloudJwt, bucketName, objectName);
 
-            if (assetBundle == null) return null;
+            if (assetBundle == null) return (null, null);
 
             T asset = assetBundle.LoadAsset<T>(assetName);
 
@@ -68,17 +69,17 @@ namespace TSUBASAMUSU.Google.CloudStorage
             {
                 Debug.LogError("Failed to convert \"" + assetName + "\" from downloaded AssetBundle.");
 
-                return null;
+                return (null, assetBundle);
             }
 
-            return asset;
+            return (asset, assetBundle);
         }
 
-        public static async Task<T[]> GetAllAssetsFromCloudStorageAsync<T>(string googleCloudJwt, string bucketName, string objectName) where T : UnityEngine.Object
+        public static async Task<(T[] assets, AssetBundle assetBundle)> GetAllAssetsFromCloudStorageAsync<T>(string googleCloudJwt, string bucketName, string objectName) where T : UnityEngine.Object
         {
             AssetBundle assetBundle = await GetAssetBundleFromCloudStorageAsync(googleCloudJwt, bucketName, objectName);
 
-            if (assetBundle == null) return null;
+            if (assetBundle == null) return (null, null);
 
             T[] assets = assetBundle.LoadAllAssets<T>();
 
@@ -86,10 +87,10 @@ namespace TSUBASAMUSU.Google.CloudStorage
             {
                 Debug.LogError("Failed to convert \"" + objectName + "\" from downloaded AssetBundle.");
 
-                return null;
+                return (null, assetBundle);
             }
 
-            return assets;
+            return (assets, assetBundle);
         }
 
         private static async Task<AssetBundle> GetAssetBundleFromCloudStorageAsync(string googleCloudJwt, string bucketName, string objectName)
