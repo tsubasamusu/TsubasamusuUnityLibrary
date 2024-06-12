@@ -119,6 +119,14 @@ private async void Hoge()
     await TSUBASAMUSU.UnityEditor.AssetUtility.CreateJsonFileAtRootDirectoryAsync("JSON 形式のテキスト", "ファイル名");
 }
 ```
+### 現在の URL からのクエリパラメーターの取得（WebGL 用）
+```cs
+private void Hoge()
+{
+    //key,value
+    Dictionary<string, string> queryParameters = TSUBASAMUSU.Other.GetQueryParameters();
+}
+```
 # 使用方法
 ## 1. Unity の設定の変更
 Unity エディタを開き、「**File** ＞ **Build Settings** ＞ **Player Settings...** ＞ **Player** ＞ **Other Settings** ＞ **Configuration** ＞ **Api Compatibility Level**」を「**.NET Standard 2.1**」に変更する。
