@@ -124,7 +124,7 @@ private async void Hoge()
 private void Hoge()
 {
     //key,value
-    Dictionary<string, string> queryParameters = TSUBASAMUSU.Other.GetQueryParameters();
+    Dictionary<string, string> queryParameters = TSUBASAMUSU.Other.WebUtility.GetQueryParameters();
 }
 ```
 # 使用方法
