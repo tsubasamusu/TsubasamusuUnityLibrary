@@ -18,7 +18,7 @@ namespace TSUBASAMUSU.Google.JsonWebToken
                 scopes = string.Join(" ", scopes)
             };
 
-            using UnityWebRequest unityWebRequest = new UnityWebRequest("https://getgooglecloudjwt-2bbvw62uua-an.a.run.app", "POST")
+            using UnityWebRequest unityWebRequest = new UnityWebRequest("https://get-google-cloud-jwt-987347081835.asia-northeast1.run.app", "POST")
             {
                 uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(JsonUtility.ToJson(request))),
                 downloadHandler = new DownloadHandlerBuffer()
