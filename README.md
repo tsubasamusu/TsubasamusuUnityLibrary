@@ -1,6 +1,6 @@
 ﻿# 機能
 ## Google Cloud Storage
-### Google Cloud Storage 上のテクスチャ（Texture2D）の取得
+### Google Cloud Storage 上のテクスチャを Texture2D として取得する
 ```cs
 private async void Hoge()
 {
@@ -11,7 +11,7 @@ private async void Hoge()
     Texture2D texture = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetTextureFromCloudStorageAsync("JSON Web Token", "バケット名", "オブジェクト名", width, height);
 }
 ```
-### Google Cloud Storage 上のアセットバンドルからの任意の型のアセットの取得
+### Google Cloud Storage 上のアセットバンドルから任意の型のアセットを取得する
 ```cs
 private async void Hoge()
 {
@@ -23,7 +23,7 @@ private async void Hoge()
 }
 ```
 ## Google Cloud JSON Web Token
-### Google Cloud の API を使用する際に必要な JSON Web Token の取得
+### Google Cloud の API を使用する際に必要な JSON Web Token を取得する
 ```cs
 private async void Hoge()
 {
@@ -33,7 +33,7 @@ private async void Hoge()
 }
 ```
 ## Google Spreadsheet
-### Google Spreadsheet のセルへの文字列の設定
+### Google Spreadsheet の任意のセルへ文字列を設定する
 ```cs
 private void Hoge()
 {
@@ -44,7 +44,7 @@ private void Hoge()
     TSUBASAMUSU.Google.Spreadsheet.SpreadsheetManager.SetCellValueAsync("JSON Web Token", "シートの ID", "シートの名前", row, column, "セルに設定する文字列");
 }
 ```
-### Google Spreadsheet のセルからの文字列の取得
+### Google Spreadsheet の任意のセルから文字列を取得する
 ```cs
 private async void Hoge()
 {
@@ -57,7 +57,7 @@ private async void Hoge()
     string cellValue = cellValues[1][2];//1行目の2列目のセルの値
 }
 ```
-### Google Spreadsheet の指定の列の最終行番号の取得
+### Google Spreadsheet の指定の列の最終行の番号を取得する
 ```cs
 private async void Hoge()
 {
@@ -67,21 +67,21 @@ private async void Hoge()
 }
 ```
 ## ライティング
-### 現在のシーンへのライトマップの適用
+### 任意のライトマップ配列を現在のシーンに適用する
 ```cs
 private void Hoge()
 {
     TSUBASAMUSU.Lighting.LightingUtility.ApplyLightmapsToCurrentScene( Texture2D 型のカラーライトマップの配列, Texture2D 型の法線ライトマップの配列);
 }
 ```
-### ライトマップのリストの並び替え（番号順）
+### ライトマップのリストを番号順に並び替える
 ```cs
 private void Hoge()
 {
     bool success = TSUBASAMUSU.Lighting.LightingUtility.SortLightmaps(ref Texture2D 型のライトマップのリスト);
 }
 ```
-### MeshRenderer 用のライトマップのデータの作成と適用
+### MeshRenderer 用のライトマップのデータを作成する
 ```cs
 [MenuItem("Assets/Create/Lightmap Data JSON File")]
 public static async void Hoge()
@@ -89,7 +89,9 @@ public static async void Hoge()
     //現在開いているシーン内の MeshRenderer のライトマップの設定を JSON ファイルに出力
     bool success = await TSUBASAMUSU.Lighting.LightingUtility.CreateJsonFileForLightingAsync();
 }
-
+```
+### MeshRenderer 用のライトマップのデータを現在のシーンに適用する
+```cs
 private void Hoge()
 {
     // CreateJsonFileForLightingAsync() で出力した JSON ファイルのデータを現在のシーンに適用
@@ -97,7 +99,7 @@ private void Hoge()
 }
 ```
 ## その他
-### ``UnityWebRequest.SendWebRequest()`` の ``await`` での待機
+### ``UnityWebRequest.SendWebRequest()`` を ``await`` で待機する
 ```cs
 using TSUBASAMUSU.UnityWebRequestAwaiter;//名前空間を追加
 using UnityEngine.Networking;
@@ -112,14 +114,14 @@ public class Sample
     }
 }
 ```
-### Assets フォルダ直下への JSON ファイルの作成
+### Assets フォルダ直下へ JSON ファイルを作成する
 ```cs
 private async void Hoge()
 {
     await TSUBASAMUSU.UnityEditor.AssetUtility.CreateJsonFileAtRootDirectoryAsync("JSON 形式のテキスト", "ファイル名");
 }
 ```
-### 現在の URL からのクエリパラメーターの取得（WebGL 用）
+### 現在の URL からクエリパラメーターを取得する（WebGL 用）
 ```cs
 private void Hoge()
 {
