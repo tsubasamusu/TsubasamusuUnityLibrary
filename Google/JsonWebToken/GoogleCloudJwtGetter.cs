@@ -9,7 +9,7 @@ namespace TSUBASAMUSU.Google.JsonWebToken
 {
     public static class GoogleCloudJwtGetter
     {
-        public static async Task<(string message, long currentUnixTime)> GetGoogleCloudJwtAsync(string privateKey, string serviceAccountEmailAddress, string[] scopes)
+        public static async Task<(string message, long currentUnixTime)> GetGoogleCloudJwtAsync(string googleCloudRunUrl, string privateKey, string serviceAccountEmailAddress, string[] scopes)
         {
             Request request = new Request
             {
@@ -18,7 +18,7 @@ namespace TSUBASAMUSU.Google.JsonWebToken
                 scopes = string.Join(" ", scopes)
             };
 
-            using UnityWebRequest unityWebRequest = new UnityWebRequest("https://get-google-cloud-jwt-987347081835.asia-northeast1.run.app", "POST")
+            using UnityWebRequest unityWebRequest = new UnityWebRequest(googleCloudRunUrl, "POST")
             {
                 uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(JsonUtility.ToJson(request))),
                 downloadHandler = new DownloadHandlerBuffer()

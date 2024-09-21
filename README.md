@@ -22,16 +22,6 @@ private async void Hoge()
     (任意の型の配列, AssetBundle) assets = await TSUBASAMUSU.Google.CloudStorage.CloudStorageObjectGetter.GetAllAssetsFromCloudStorageAsync<{任意の型}>("JSON Web Token", "バケット名", "オブジェクト名");
 }
 ```
-## Google Cloud JSON Web Token
-### Google Cloud の API を使用する際に必要な JSON Web Token を取得する
-```cs
-private async void Hoge()
-{
-    string[] scopes = new string[1] {"必要な権限のURL"};
-
-    string jwt = await TSUBASAMUSU.Google.JsonWebToken.GoogleCloudJwtGetter.GetGoogleCloudJwtAsync("サービスアカウントのプライベートキー", "サービスアカウントのメールアドレス", scopes);
-}
-```
 ## Google Spreadsheet
 ### Google Spreadsheet の任意のセルへ文字列を設定する
 ```cs
